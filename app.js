@@ -9,8 +9,8 @@ const passport = require("passport");
 const authRouter = require("./routers/auth");
 const contactRouter = require("./routers/contact");
 const { User } = require("./models/auth");
-const blogsData=require('./blog.json')
-const blogs1=blogsData.blogs
+const blogsData = require('./blog.json');
+const blogs1 = blogsData.blogs;
 const fs = require('fs');
 const homeStartingContent =
   "Step into the world of words with our user-friendly blog platform! Whether you're a seasoned writer or just getting started, our intuitive interface makes composing and editing blogs a breeze! Join our community of storytellers, where your unique voice is celebrated. Ready to share your thoughts? Click the 'Compose' button below and let your creativity flow! Your blogging journey begins here.";
@@ -96,10 +96,9 @@ app.post("/compose", function (req, res) {
     title: req.body.newTitle,
     content: req.body.newBlog,
     image: req.body.newImage,
-
   };
   posts.push(post);
-  blogsData.blogs.push(post1)
+  blogsData.blogs.push(post1);
   const jsonString = JSON.stringify(blogsData, null, 2);
   fs.writeFileSync('./blog.json', jsonString, 'utf-8');
   res.redirect("/home");
@@ -125,11 +124,11 @@ app.get("/posts/:postName", function (req, res) {
 });
 
 app.get("/blogs", function (req, res) {
-  res.render("blogs",{blogs: blogsData.blogs});
+  res.render("blogs", { blogs: blogsData.blogs });
 });
 
 app.get("/error", function (req, res) {
-  res.render("error",{error1: "Unauthorised Access"});
+  res.render("error", { error1: "Unauthorised Access" });
 });
 
 app.get("/blogs/:blogName", function (req, res) {
@@ -147,6 +146,10 @@ app.get("/blogs/:blogName", function (req, res) {
       });
     }
   });
+});
+
+app.get("/forgotpassword", function (req, res) {
+  res.render("forgotpassword");
 });
 
 app.use("/", authRouter);
