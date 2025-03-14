@@ -108,6 +108,8 @@ app.post("/compose", function (req, res) {
 app.get("/posts/:postName", function (req, res) {
   const requestedTitle = _.lowerCase(req.params.postName);
 
+  let nextBlogAuthor = "Unknown Author"; // Default author for /posts route
+
   posts.forEach(function (post) {
     const storedTitle = _.lowerCase(post.title);
 
@@ -115,6 +117,8 @@ app.get("/posts/:postName", function (req, res) {
       res.render("post", {
         nextBlogTitle: post.title,
         nextBlog: post.blog,
+        nextBlogAuthor: nextBlogAuthor,
+        nextBlogImage: post.image || "", // added image
       });
     }
   });
@@ -138,7 +142,7 @@ app.get("/blogs/:blogName", function (req, res) {
       res.render("post", {
         nextBlogImage: blog.image,
         nextBlogTitle: blog.title,
-        nextBlogAuthor: blog.author,
+        nextBlogAuthor: blog.author || "Unknown Author", // added default
         nextBlog: blog.content,
       });
     }
