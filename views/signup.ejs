@@ -1,6 +1,6 @@
 <%- include("partials/header"); -%>
-<main style="margin-top: 10px">
-  <section id="contact" class="contact">
+<main style="margin-top: 10px; margin-bottom: 20px">
+  <section id="contact" class="contact"style="max-width: 400px; margin: 0 auto;">
     <h2
       style="
         font-size: 27px;
@@ -12,7 +12,7 @@
       Sign Up
     </h2>
 
-    <form action="/signup" method="post">
+    <form id="signupForm" action="/signup" method="post">
       <label for="name">Name:</label>
       <input
         type="text"
@@ -45,6 +45,41 @@
         "
       />
 
+      <label for="contact">Phone Number:</label>
+      <input
+        type="tel"
+        id="contact"
+        name="contact"
+        placeholder="Enter your phone number"
+        required
+        pattern="\d{10}"
+        title="Enter a valid 10-digit phone number"
+        style="
+          width: 100%;
+          padding: 10px;
+          margin: 5px 0;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          color: black;
+        "
+      />
+
+      <label for="dob">Date of Birth:</label>
+      <input
+        type="date"
+        id="dob"
+        name="dob"
+        required
+        style="
+          width: 100%;
+          padding: 10px;
+          margin: 5px 0;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          color: black;
+        "
+      />
+
       <label for="password">Password:</label>
       <input
         type="password"
@@ -64,6 +99,28 @@
           color: black;
         "
       />
+
+      <label for="confirm-password">Confirm Password:</label>
+      <input
+        type="password"
+        id="confirm-password"
+        name="confirm-password"
+        placeholder="Confirm password"
+        required
+        minlength="5"
+        pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{5,}$"
+        title="Minimum five characters, at least one letter, one number and one special character"
+        style="
+          width: 100%;
+          padding: 10px;
+          margin: 5px 0;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          color: black;
+        "
+      />
+
+      <div id="error-message" style="color: red; display: none; margin-top: 10px;"></div>
 
       <button
         type="submit"
@@ -85,3 +142,19 @@
 </main>
 
 <%- include("partials/footer"); -%>
+
+<script>
+  document.getElementById("signupForm").addEventListener("submit", function(event) {
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirm-password").value;
+    const errorMessage = document.getElementById("error-message");
+
+    if (password !== confirmPassword) {
+      event.preventDefault();
+      errorMessage.textContent = "Passwords do not match. Please try again.";
+      errorMessage.style.display = "block";
+    } else {
+      errorMessage.style.display = "none";
+    }
+  });
+</script>

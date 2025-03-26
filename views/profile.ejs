@@ -1,0 +1,28 @@
+<%- include("partials/header"); -%>
+
+<main class="container" style="margin-top: 40px;">
+  <% if (user) { %>
+    <div class="profile-card" style="background-color: #f9f9f9; border: 1px solid #ddd; border-radius: 8px; padding: 20px; box-shadow: 2px 2px 10px rgba(0,0,0,0.1);">
+      <h1 style="font-size: 32px; margin-bottom: 20px; text-align: center;">Profile</h1>
+      <p style="font-size: 18px;"><strong>Name:</strong> <%= user.name %></p>
+      <p style="font-size: 18px;"><strong>Email:</strong> <%= user.email %></p>
+      <% if (user.contact) { %>
+        <p style="font-size: 18px;"><strong>Phone Number:</strong> <%= user.contact %></p>
+      <% } %>
+      <% if (user.dob) { %>
+        <p style="font-size: 18px;">
+          <strong>Date of Birth:</strong> <%= new Date(user.dob).toLocaleDateString() %>
+        </p>
+      <% } %>
+      <div style="text-align: center; margin-top: 20px;">
+        <a href="/profile/edit" class="btn btn-primary" style="font-size: 18px; padding: 10px 20px;">
+          Edit Profile
+        </a>
+      </div>
+    </div>
+  <% } else { %>
+    <p style="font-size: 18px; text-align: center;">You must be logged in to view your profile.</p>
+  <% } %>
+</main>
+
+<%- include("partials/footer"); -%>

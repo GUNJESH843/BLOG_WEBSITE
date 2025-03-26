@@ -2,6 +2,11 @@
 
 <div class="container main-content">
   <br />
+  
+  <% if(user){ %>
+    <h2>Welcome, <%= user.name %></h2>
+  <% } %>
+
   <h1>Home</h1>
 
   <p><%= blog1 %></p>
@@ -29,6 +34,19 @@
     </div>
     <% }); %>
   </div>
+
+  <% posts.forEach(function(post, index) { %>
+    <div class="post">
+      <h2><%= post.title %></h2>
+      <p><%= post.blog %></p>
+      <% if (post.image) { %>
+        <img src="<%= post.image %>" alt="Post Image" style="max-width: 100%; height: auto;">
+      <% } %>
+      <form action="/delete/<%= index %>" method="POST" style="display:inline;">
+        <button class="btn btn-danger" type="submit">Delete</button>
+      </form>
+    </div>
+  <% }); %>
 
   <div class="text-center">
     <button
